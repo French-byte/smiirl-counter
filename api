@@ -9,12 +9,13 @@ export default async function handler(req, res) {
     const html = response.data;
     const $ = cheerio.load(html);
 
+    // Adjust this if the number is in a specific section
     const span = $('span[title]').first();
-    const number = parseInt(span.attr('title'), 10);
+    const rawNumber = span.attr('title');
 
-    if (!number) throw new Error('Could not find number');
+    if (!rawNumber) throw new Error('Number not found in span');
 
-    res.setHeader('Content-Type', 'application/json');
+    const number = parseInt(rawNumber, 10);
     res.status(200).json({ number });
   } catch (error) {
     console.error(error.message);
