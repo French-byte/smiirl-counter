@@ -9,6 +9,7 @@ export default async function handler(req, res) {
     const html = response.data;
     const $ = cheerio.load(html);
 
+    // Extract the first <span> with a title attribute
     const span = $('span[title]').first();
     const rawNumber = span.attr('title');
 
